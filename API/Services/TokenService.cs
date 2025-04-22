@@ -18,7 +18,11 @@ public class TokenService(IConfiguration config) : ITokenService
             throw new Exception("Your tokenKey needs to be longer");
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
 
-        var claims = new List<Claim> { new(ClaimTypes.NameIdentifier, user.UserName) };
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Name, user.UserName),
+        };
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
