@@ -2,6 +2,7 @@ using API.Controllers;
 using API.DTOs;
 using API.Extensions;
 using API.Helpers;
+using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API;

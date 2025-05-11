@@ -1,7 +1,7 @@
 using API.DTOs;
 using API.Helpers;
 
-namespace API;
+namespace API.Interfaces;
 
 public interface ILikesRepository
 {
