@@ -1,6 +1,6 @@
 using API.Entities;
 
-namespace API;
+namespace API.Entities;
 
 public class Message
 {

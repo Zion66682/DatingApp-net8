@@ -1,4 +1,5 @@
 using API.DTOs;
+using API.Entities;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
@@ -30,12 +31,15 @@ public class MessageRepository(DataContext context, IMapper mapper) : IMessageRe
 
         query = messageParams.Container switch
         {
-            "Inbox" => query.Where(x => x.Recipient.UserName == messageParams.Username 
-                && x.RecipientDeleted == false),
-            "Outbox" => query.Where(x => x.Sender.UserName == messageParams.Username 
-                && x.SenderDeleted == false),
+            "Inbox" => query.Where(x =>
+                x.Recipient.UserName == messageParams.Username && x.RecipientDeleted == false
+            ),
+            "Outbox" => query.Where(x =>
+                x.Sender.UserName == messageParams.Username && x.SenderDeleted == false
+            ),
             _ => query.Where(x =>
-                x.Recipient.UserName == messageParams.Username && x.DateRead == null 
+                x.Recipient.UserName == messageParams.Username
+                && x.DateRead == null
                 && x.RecipientDeleted == false
             ),
         };
@@ -60,11 +64,11 @@ public class MessageRepository(DataContext context, IMapper mapper) : IMessageRe
             .Include(x => x.Recipient)
             .ThenInclude(x => x.Photos)
             .Where(x =>
-                x.RecipientUsername == currentUserName 
-                    && x.RecipientDeleted == false 
+                x.RecipientUsername == currentUserName
+                    && x.RecipientDeleted == false
                     && x.SenderUsername == recipientUserNmae
-                || x.SenderUsername == currentUserName 
-                    && x.SenderDeleted == false 
+                || x.SenderUsername == currentUserName
+                    && x.SenderDeleted == false
                     && x.RecipientUsername == recipientUserNmae
             )
             .OrderBy(x => x.MessageSent)
