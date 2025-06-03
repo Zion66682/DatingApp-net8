@@ -15,7 +15,6 @@ public interface IMessageRepository
         string currentUserName,
         string recipientUserNmae
     );
-    Task<bool> SaveAllAsync();
 
     void AddGroup(Group group);
 
